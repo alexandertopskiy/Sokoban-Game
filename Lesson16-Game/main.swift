@@ -1,6 +1,5 @@
 import Foundation
 
-
 // MARK: - Домашка
 
 //1. Создайте тип Комната. У комнаты есть размеры W на H. И создайте тип Персонаж. У него есть координата в комнате X и Y. Реализуйте функцию, которая красивенько текстом будет показывать положение персонажа в комнате
@@ -248,7 +247,8 @@ func checkInput(input: String, range: ClosedRange<Int>) -> (a: Int, b: Int)? {
 }
 
 //вывод ошибок
-func printError(errorType: ErrorType) -> Bool {
+//@discardableResult - мы можем и не использовать результат работы функции
+@discardableResult func printError(errorType: ErrorType) -> Bool {
     switch errorType {
         case .wrongCommand: print("there's no such action! please repeat enter")
         case .boxAhead: print("error! you can't move the box, because there's other one ahead of this one!")
@@ -276,7 +276,7 @@ while !isGameOver {
             globalName = name
             break
         } else {
-            let _ = printError(errorType: .unknownError)
+            printError(errorType: .unknownError)
         }
     }
     
@@ -289,7 +289,7 @@ while !isGameOver {
                 break
             }
         } else {
-            let _ = printError(errorType: .unknownError)
+            printError(errorType: .unknownError)
         }
     }
                     
@@ -382,9 +382,8 @@ while !isGameOver {
                     break gameLoop
                 }
             case "q","й": break gameLoop
-            default: let _ = printError(errorType: .wrongCommand)
+            default: printError(errorType: .wrongCommand)
             }
-            
             for box in arrayOfBoxes {
                 if (box.x,box.y) == (1,1) || (box.x,box.y) == (room.w,1) || (box.x,box.y) == (1,room.h) || (box.x,box.y) == (room.w,room.h) {
                     print("the box is stuck! game over, \(person.name)!")
@@ -411,9 +410,8 @@ while !isGameOver {
             case "no","нет","n","н":
                 isGameOver = true
                 break isGameOverLoop
-            default: let _ = printError(errorType: .wrongCommand)
+            default: printError(errorType: .wrongCommand)
             }
         }
     }
-    
 }
